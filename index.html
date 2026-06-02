@@ -282,6 +282,21 @@ body{background:#fdf8f4;font-family:'Cormorant Garamond',serif;color:#28180e;ove
     transparent
   );
 }
+.wish-feed{
+max-height: 300px;     /* 👈 limits height */
+overflow-y: auto;      /* 👈 enables scroll */
+padding-right: 4px;
+scroll-behavior: smooth;
+-webkit-overflow-scrolling: touch; /* ✅ smoother on iPhone */
+position: relative;   /* ✅ IMPORTANT */
+}
+
+.wish-item{
+  margin-bottom: 10px;
+}
+
+.wish-feed::after{  content: "";  position: absolute;  left: 0;  right: 0;  bottom: 0;  height: 24px;  background: linear-gradient(    to top,    var(--card),   /* ✅ use your theme colour instead of white */    transparent  );  pointer-events: none;}
+  
 
 /* text */
 .sc-tag{
@@ -703,7 +718,7 @@ footer{background:var(--ink);padding:60px 28px 48px;text-align:center}
         </span>
         <span class="det-tag">Time</span>
         <span class="det-main">6:30 PM</span>
-        <span class="det-sub">Don’t be late… this will be remembered 📝🔪</span>
+        <span class="det-sub">Don’t be late… we know where you live 😏</span>
       </div>
 
       <!-- OCCASION -->
@@ -751,26 +766,51 @@ footer{background:var(--ink);padding:60px 28px 48px;text-align:center}
     </div>
   </div>
 
-  <!-- WISHES -->
-  <div class="band reveal">
-    <div class="inner" style="text-align:center">
-      <span class="eyebrow">Blessings &amp; Wishes</span>
-      <h2 class="sec-h">Leave a blessing</h2>
-      <div class="orn"><div class="orn-l"></div><div class="orn-s"></div><div class="orn-g"></div><div class="orn-s"></div><div class="orn-l r"></div></div>
-      <div class="wish-inner">
-        <div class="wish-form">
-          <input class="wish-inp" id="wName" placeholder="Your name…" type="text">
-          <textarea class="wish-inp" id="wText" placeholder="Write your blessing or wish for the couple…"></textarea>
-          <button class="wish-send" onclick="addWish()">Send &#x1F48C;</button>
-        </div>
-        <div class="wish-empty" id="wishEmpty">
-          <span class="wish-empty-icon">&#x1F4AC;</span>
-          <p class="wish-empty-txt">Be the first to leave a blessing<br>for Anas &amp; Reham on their special day</p>
-        </div>
-        <div class="wish-feed" id="wishFeed"></div>
-      </div>
+<!-- WISHES -->
+<div class="band reveal">
+  <div class="inner" style="text-align:center">
+
+    <span class="eyebrow">Blessings &amp; Wishes</span>
+    <h2 class="sec-h">Leave a blessing</h2>
+
+    <div class="orn">
+      <div class="orn-l"></div>
+      <div class="orn-s"></div>
+      <div class="orn-g"></div>
+      <div class="orn-s"></div>
+      <div class="orn-l r"></div>
     </div>
+
+    <div class="wish-inner">
+
+      <div class="wish-form">
+
+        <input class="wish-inp" id="wName"
+          placeholder="Your name (no hiding 😏)" type="text">
+
+        <textarea class="wish-inp" id="wText"
+          placeholder="Say something nice… or funny, we might read it later 😄"></textarea>
+
+        <button class="wish-send" onclick="addWish()">
+          Send 💌
+        </button>
+
+      </div>
+
+      <div class="wish-empty" id="wishEmpty">
+        <span class="wish-empty-icon">💬</span>
+        <p class="wish-empty-txt">
+          Be the first to leave something we'll remember 👀<br>
+          for Anas &amp; Reham on their special day
+        </p>
+      </div>
+
+      <div class="wish-feed" id="wishFeed"></div>
+
+    </div>
+
   </div>
+</div>
 
 </div><!-- /invitation -->
 
@@ -1029,8 +1069,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const mysteryCard = document.getElementById("mysteryCard");
 
-  mysteryCard.addEventListener("click", function () {
-    triggerHomer();   // ✅ runs on every tap
+  mysteryCard.addEventListener("click", function (e) {
+    e.preventDefault();   // ✅ important for mobile
+    e.stopPropagation();  // ✅ avoids double handling
+
+    triggerHomer();       // ✅ fires immediately
   });
 
 });
