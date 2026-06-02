@@ -608,7 +608,7 @@ footer{background:var(--ink);padding:60px 28px 48px;text-align:center}
           </div>
         </div>
 
-        <div class="story-card-l mystery-card reveal" onclick="triggerHomer()">
+        <div id="mysteryCard" class="story-card-l mystery-card reveal">
           <div class="sc-in" style="cursor:pointer">
             <div class="mystery-pulse"></div>
 
@@ -703,7 +703,7 @@ footer{background:var(--ink);padding:60px 28px 48px;text-align:center}
         </span>
         <span class="det-tag">Time</span>
         <span class="det-main">6:30 PM</span>
-        <span class="det-sub">Don’t be late… we know where you live 😏</span>
+        <span class="det-sub">Don’t be late… this will be remembered 📝🔪</span>
       </div>
 
       <!-- OCCASION -->
@@ -1022,6 +1022,17 @@ const observer = new IntersectionObserver((entries)=>{
 
 document.querySelectorAll(".reveal").forEach(el=>{
   observer.observe(el);
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const mysteryCard = document.getElementById("mysteryCard");
+
+  mysteryCard.addEventListener("click", function () {
+    triggerHomer();   // ✅ runs on every tap
+  });
+
 });
 </script>
 </body>
