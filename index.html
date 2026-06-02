@@ -109,8 +109,8 @@ body{background:#fdf8f4;font-family:'Cormorant Garamond',serif;color:#28180e;ove
   content:"";
   position:absolute;
   left:50%;
-  top:24px;
-  bottom:24px;
+  top:8px;
+  bottom:10px;
   width:2px;
   transform:translateX(-50%);
   background:linear-gradient(
@@ -124,12 +124,36 @@ body{background:#fdf8f4;font-family:'Cormorant Garamond',serif;color:#28180e;ove
   z-index:0;
 }
 
+.event-info{
+  text-align:center;
+  margin:80px auto 40px;
+}
+
+.event-date{
+  font-family:'Cinzel', serif;
+  font-size:18px;
+  letter-spacing:3px;
+  margin-bottom:10px;
+  color:var(--rose);
+}
+
+.event-time{
+  font-size:26px;
+  margin-bottom:12px;
+}
+
+.event-note{
+  font-size:14px;
+  font-style:italic;
+  opacity:0.7;
+}
+``
 /* each row → vertical sequence */
 .story-row{
   display:flex;
   flex-direction:column;
   align-items:center;
-  margin:40px 0;
+  margin:20px 0;
   position:relative;
 }
 
@@ -638,18 +662,79 @@ footer{background:var(--ink);padding:60px 28px 48px;text-align:center}
   </div>
 
   <!-- DETAILS -->
-  <div class="band reveal">
-    <div class="inner" style="text-align:center">
-      <span class="eyebrow">Event Details</span>
-      <h2 class="sec-h">Save the date</h2>
-      <div class="orn"><div class="orn-l"></div><div class="orn-s"></div><div class="orn-g"></div><div class="orn-s"></div><div class="orn-l r"></div></div>
-      <div class="det-grid">
-        <div class="det-card"><span class="det-icon">&#x1F4C5;</span><span class="det-tag">Date</span><span class="det-main">July 4, 2026</span><span class="det-sub">Saturday</span></div>
-        <div class="det-card"><span class="det-icon">&#x1F48D;</span><span class="det-tag">Occasion</span><span class="det-main">Engagement</span><span class="det-sub">Anas &amp; Reham</span></div>
-        <div class="det-card"><span class="det-icon">&#x2728;</span><span class="det-tag">Dress Code</span><span class="det-main">Smart Elegant</span><span class="det-sub">Dress to celebrate</span></div>
-      </div>
+<div class="band reveal">
+  <div class="inner" style="text-align:center">
+
+    <span class="eyebrow">Event Details</span>
+    <h2 class="sec-h">Save the date</h2>
+
+    <div class="orn">
+      <div class="orn-l"></div>
+      <div class="orn-s"></div>
+      <div class="orn-g"></div>
+      <div class="orn-s"></div>
+      <div class="orn-l r"></div>
     </div>
+
+    <div class="det-grid">
+
+      <!-- DATE -->
+      <div class="det-card">
+        <span class="det-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="4" width="18" height="18" rx="3"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </span>
+        <span class="det-tag">Date</span>
+        <span class="det-main">17 July 2026</span>
+        <span class="det-sub">Saturday</span>
+      </div>
+
+      <!-- TIME -->
+      <div class="det-card">
+        <span class="det-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="9"></circle>
+            <polyline points="12,6 12,12 16,14"></polyline>
+          </svg>
+        </span>
+        <span class="det-tag">Time</span>
+        <span class="det-main">6:30 PM</span>
+        <span class="det-sub">Don’t be late… we know where you live 😏</span>
+      </div>
+
+      <!-- OCCASION -->
+      <div class="det-card">
+        <span class="det-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="14" r="4"></circle>
+            <path d="M12 2 L15 7 L9 7 Z"></path>
+          </svg>
+        </span>
+        <span class="det-tag">Occasion</span>
+        <span class="det-main">Engagement</span>
+        <span class="det-sub">Anas &amp; Reham</span>
+      </div>
+
+      <!-- DRESS -->
+      <div class="det-card">
+        <span class="det-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <polygon points="12 2 15 11 22 11 16 15 18 22 12 17 6 22 8 15 2 11 9 11"></polygon>
+          </svg>
+        </span>
+        <span class="det-tag">Dress Code</span>
+        <span class="det-main">Smart Elegant</span>
+        <span class="det-sub">Dress to celebrate</span>
+      </div>
+
+    </div>
+
   </div>
+</div>
 
   <!-- LOCATION -->
   <div class="band reveal">
