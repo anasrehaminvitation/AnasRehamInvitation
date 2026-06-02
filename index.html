@@ -97,7 +97,7 @@ body{background:#fdf8f4;font-family:'Cormorant Garamond',serif;color:#28180e;ove
 /* ══ STORY — cinematic vertical centered timeline ══ */
 
 .story-wrap{
-  max-width:900px;
+  max-width:1200px;
   margin:40px auto 0;
   display:flex;
   flex-direction:column;
@@ -248,7 +248,7 @@ body{background:#fdf8f4;font-family:'Cormorant Garamond',serif;color:#28180e;ove
   border-radius:16px;
 
   padding:28px 36px;
-  max-width:620px;
+  max-width:none;
   width:100%;
 
   position:relative;
@@ -283,20 +283,80 @@ body{background:#fdf8f4;font-family:'Cormorant Garamond',serif;color:#28180e;ove
   );
 }
 .wish-feed{
-max-height: 300px;     /* 👈 limits height */
-overflow-y: auto;      /* 👈 enables scroll */
-padding-right: 4px;
-scroll-behavior: smooth;
--webkit-overflow-scrolling: touch; /* ✅ smoother on iPhone */
-position: relative;   /* ✅ IMPORTANT */
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scroll-behaviour: smooth;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;              /* spacing between messages */
 }
 
-.wish-item{
-  margin-bottom: 10px;
+.wish-card{
+  background: var(--card);
+  border: 1px solid rgba(200,120,104,.14);
+  border-radius: 10px;
+  padding: 18px 18px;
+  box-shadow: 0 2px 12px rgba(180,96,88,.07);
+  position: relative;
+
+  overflow: visible;      /* IMPORTANT: don't clip text/name */
+  min-height: fit-content;
+  flex-shrink: 0;         /* IMPORTANT: cards must not shrink */
+  height: auto;           /* let card grow with message */
 }
 
-.wish-feed::after{  content: "";  position: absolute;  left: 0;  right: 0;  bottom: 0;  height: 24px;  background: linear-gradient(    to top,    var(--card),   /* ✅ use your theme colour instead of white */    transparent  );  pointer-events: none;}
-  
+.wish-card::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom,var(--blush),var(--rose-l));
+  border-radius: 3px 0 0 3px;
+}
+
+.wish-txt{
+  display: block;
+  margin: 0 0 8px 0;
+
+  font-size: 14px;
+  line-height: 1.7;
+  colour: var(--ink2);
+  font-style: italic;
+
+  white-space: normal;          /* allow wrapping */
+  word-break: break-word;       /* break long words if needed */
+  overflow-wrap: anywhere;      /* safer wrapping on mobile */
+}
+
+.wish-from{
+  display: block;
+  margin-top: 6px;
+
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  colour: var(--rose);
+  opacity: 0.85;
+}
+
+.wish-feed::after{
+  content: "";
+  position: sticky;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  height: 20px;
+  background: linear-gradient(to top, var(--card), transparent);
+  pointer-events: none;
+}
+``
 
 /* text */
 .sc-tag{
