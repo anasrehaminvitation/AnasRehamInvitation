@@ -1244,32 +1244,81 @@ document.addEventListener("DOMContentLoaded", function () {
   let music;
   let musicStarted = false;
 
+  const MUSIC_URL = "https://res.cloudinary.com/dqbcnwuwy/video/upload/v1780522277/Hussain_Al_Jassmi_-_Ana_Wel_Amar_Album_HJ2025_%D8%AD%D8%B3%D9%8A%D9%86_%D8%A7%D9%84%D8%AC%D8%B3%D9%85%D9%8A_-_%D8%A7%D9%86%D8%A7_%D9%88%D8%A7%D9%84%D9%82%D9%85%D8%B1_-_Hussain_Al_Jassmi_%D8%AD%D8%B3%D9%8A%D9%86_%D8%A7%D9%84%D8%AC%D8%B3%D9%85%D9%8A_cjjaqv.mp3";
+
+  function fadeIn() {
+    let vol = 0;
+    const fade = setInterval(() => {
+      if (vol < 0.3) {
+        vol += 0.01;
+        music.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    }, 200);
+  }
+
   function startMusic() {
     if (musicStarted) return;
     musicStarted = true;
 
-    music = new Audio("music.mp3");
+    music = new Audio(MUSIC_URL);
     music.loop = true;
     music.volume = 0;
 
-    music.play().then(() => {
-      let vol = 0;
-      const fade = setInterval(() => {
-        if (vol < 0.3) {
-          vol += 0.01;
-          music.volume = vol;
-        } else {
-          clearInterval(fade);
-        }
-      }, 200);
-    }).catch(err => {
-      console.log("Autoplay blocked:", err);
-      musicStarted = false;
-    });
+    music.play()
+      .then(() => fadeIn())
+      .catch(err => {
+        console.log("Autoplay blocked:", err);
+        musicStarted = false;
+      });
   }
 
+  function resumeMusic() {
+    if (music && music.paused && musicStarted) {
+      music.play().catch(err => console.log(err));
+    }
+  }
+
+  // ✅ Try immediately on page load
+  window.addEventListener("load", () => {
+    // Try muted first (browsers allow muted autoplay)
+    music = new Audio(MUSIC_URL);
+    music.loop = true;
+    music.muted = true;
+    music.volume = 0.3;
+
+    music.play().then(() => {
+      // Unmute immediately
+      music.muted = false;
+      music.volume = 0;
+      musicStarted = true;
+      fadeIn();
+      console.log("Autoplay worked!");
+    }).catch(err => {
+      console.log("Autoplay blocked, waiting for interaction...");
+      music = null;
+      musicStarted = false;
+    });
+  });
+
+  // ✅ Fallback on first interaction
   document.addEventListener("click", startMusic);
   document.addEventListener("touchend", startMusic);
+
+  // ✅ Resume when coming back to tab
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") resumeMusic();
+  });
+
+  // ✅ Resume on window focus
+  window.addEventListener("focus", resumeMusic);
+
+  // ✅ Resume on mobile app switch back
+  window.addEventListener("pageshow", resumeMusic);
+
+  // ✅ Keep alive check every second
+  setInterval(resumeMusic, 1000);
 </script>
 </body>
 </html>
