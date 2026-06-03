@@ -1240,6 +1240,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 </script>
 <!-- ✅ Background Music -->
+
 <script>
   let music;
   let musicStarted = false;
@@ -1269,7 +1270,7 @@ document.addEventListener("DOMContentLoaded", function () {
     music.play()
       .then(() => fadeIn())
       .catch(err => {
-        console.log("Autoplay blocked:", err);
+        console.log("Blocked:", err);
         musicStarted = false;
       });
   }
@@ -1280,31 +1281,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ✅ Try immediately on page load
-  window.addEventListener("load", () => {
-    // Try muted first (browsers allow muted autoplay)
-    music = new Audio(MUSIC_URL);
-    music.loop = true;
-    music.muted = true;
-    music.volume = 0.3;
+  // ✅ Any mouse movement on desktop
+  document.addEventListener("mousemove", startMusic, { once: true });
 
-    music.play().then(() => {
-      // Unmute immediately
-      music.muted = false;
-      music.volume = 0;
-      musicStarted = true;
-      fadeIn();
-      console.log("Autoplay worked!");
-    }).catch(err => {
-      console.log("Autoplay blocked, waiting for interaction...");
-      music = null;
-      musicStarted = false;
-    });
-  });
+  // ✅ Any scroll
+  document.addEventListener("scroll", startMusic, { once: true });
 
-  // ✅ Fallback on first interaction
-  document.addEventListener("click", startMusic);
-  document.addEventListener("touchend", startMusic);
+  // ✅ Any touch on mobile (just touching screen, no need to click)
+  document.addEventListener("touchstart", startMusic, { once: true });
+
+  // ✅ Any key press
+  document.addEventListener("keydown", startMusic, { once: true });
+
+  // ✅ Click as backup
+  document.addEventListener("click", startMusic, { once: true });
 
   // ✅ Resume when coming back to tab
   document.addEventListener("visibilitychange", () => {
@@ -1320,5 +1310,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ✅ Keep alive check every second
   setInterval(resumeMusic, 1000);
 </script>
+
 </body>
 </html>
