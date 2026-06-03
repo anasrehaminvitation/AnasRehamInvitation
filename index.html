@@ -1241,33 +1241,16 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <!-- ✅ Background Music -->
 <script>
-  let music;
-
   document.body.addEventListener("click", () => {
 
-    if (!music) {
-      music = new Audio("music.mp3");
+    const music = new Audio("music.mp3");
 
-      music.loop = true;
-      music.volume = 0;
+    music.play()
+      .then(() => console.log("✅ playing"))
+      .catch(err => console.log("❌ error:", err));
 
-      music.play().catch(err => {
-        console.log("Play error:", err);
-      });
-
-      // 🎬 smooth fade-in
-      let vol = 0;
-      const fade = setInterval(() => {
-        if (vol < 0.3) {
-          vol += 0.01;
-          music.volume = vol;
-        } else {
-          clearInterval(fade);
-        }
-      }, 200);
-    }
-
-  }, { once: true });
+  });
 </script>
+
 </body>
 </html>
