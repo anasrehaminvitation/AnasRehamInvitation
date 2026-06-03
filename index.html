@@ -1241,16 +1241,35 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <!-- ✅ Background Music -->
 <script>
-  document.body.addEventListener("click", () => {
+  let music;
+  let musicStarted = false;
 
-    const music = new Audio("music.mp3");
+  function startMusic() {
+    if (musicStarted) return;
+    musicStarted = true;
 
-    music.play()
-      .then(() => console.log("✅ playing"))
-      .catch(err => console.log("❌ error:", err));
+    music = new Audio("music.mp3");
+    music.loop = true;
+    music.volume = 0;
 
-  });
+    music.play().then(() => {
+      let vol = 0;
+      const fade = setInterval(() => {
+        if (vol < 0.3) {
+          vol += 0.01;
+          music.volume = vol;
+        } else {
+          clearInterval(fade);
+        }
+      }, 200);
+    }).catch(err => {
+      console.log("Autoplay blocked:", err);
+      musicStarted = false;
+    });
+  }
+
+  document.addEventListener("click", startMusic);
+  document.addEventListener("touchend", startMusic);
 </script>
-
 </body>
 </html>
